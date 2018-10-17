@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import React, { Component } from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
-import { formatPrice } from '../helpers';
+import { formatPrice } from "../helpers";
 
 class Order extends Component {
+  static propTypes = {
+    order: PropTypes.object,
+    fishes: PropTypes.object,
+    deleteFromOrder: PropTypes.func,
+  };
+
   renderOrder = key => {
     const fish = this.props.fishes[key];
     if (!fish) return null;
     const count = this.props.order[key];
-    if (fish.status !== 'available') {
+    if (fish.status !== "available") {
       return (
         <CSSTransition
           key={key}
@@ -16,7 +23,7 @@ class Order extends Component {
           timeout={{ enter: 500, exit: 500 }}
         >
           <li key={key}>
-            Sorry {fish ? fish.name : 'fish'} is no longer available
+            Sorry {fish ? fish.name : "fish"} is no longer available
           </li>
         </CSSTransition>
       );
@@ -54,7 +61,7 @@ class Order extends Component {
     const total = orderIds.reduce((acc, key) => {
       const fish = this.props.fishes[key];
       const count = this.props.order[key];
-      const isAvailable = fish && fish.status === 'available';
+      const isAvailable = fish && fish.status === "available";
       if (isAvailable) return acc + count * fish.price;
       return acc;
     }, 0);
