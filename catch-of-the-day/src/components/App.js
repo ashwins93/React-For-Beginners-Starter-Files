@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import Header from './Header';
-import Order from './Order';
-import Inventory from './Inventory';
-import sampleFishes from '../sample-fishes';
-import Fish from './Fish';
-import base from '../base';
+import Header from "./Header";
+import Order from "./Order";
+import Inventory from "./Inventory";
+import sampleFishes from "../sample-fishes";
+import Fish from "./Fish";
+import base from "../base";
 
 class App extends React.Component {
   state = {
@@ -21,14 +21,14 @@ class App extends React.Component {
 
     this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
       context: this,
-      state: 'fishes',
+      state: "fishes",
     });
   }
 
   componentDidUpdate() {
     localStorage.setItem(
       this.props.match.params.storeId,
-      JSON.stringify(this.state.order),
+      JSON.stringify(this.state.order)
     );
   }
 
@@ -98,6 +98,7 @@ class App extends React.Component {
           deleteFish={this.deleteFish}
           loadSampleFishes={this.loadSampleFishes}
           fishes={this.state.fishes}
+          storeId={this.props.match.params.storeId}
         />
       </div>
     );
